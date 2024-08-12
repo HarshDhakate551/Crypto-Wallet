@@ -1,0 +1,50 @@
+even when i tried to put then in different file i got error because it has no cdn and without we can use those packages as using npm is not allowed in DOM manipulation it's like going outside the browser window to do your inside window tasks
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Wallet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1 style="font-size: 3rem; margin-bottom: 0.2rem;">Harsh Wallet</h1>
+  <h2 style="margin-top: 0.2rem;">A personal web-3 wallet for Harkirat's cohort 3.0 assignment.</h2>
+  <div class="container"> 
+    <input type="text" id="phraseInput" placeholder="Enter your secret phrase (auto-generated if not specified)">
+    <button id="addWalletButton">Add Wallet</button>
+  </div>
+  <button id="generateMnemonicButton">Generate Mnemonic</button>
+  <div id="mnemonic"></div>
+
+  <!-- Include bip39 library via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bip39@3.0.4/bip39.min.js"></script>
+  <script>
+    // Ensure bip39 is loaded
+    if (typeof bip39 !== 'undefined') {
+      document.getElementById('generateMnemonicButton').addEventListener('click', function() {
+        // Generate a 12-word mnemonic
+        const mnemonic = bip39.generateMnemonic();
+        console.log("Generated Mnemonic:", mnemonic);
+        const div = document.getElementById("mnemonic");
+        div.textContent = mnemonic;
+      });
+
+      document.getElementById('addWalletButton').addEventListener('click', function() {
+        const phraseInput = document.getElementById('phraseInput');
+        const userPhrase = phraseInput.value;
+
+        if (userPhrase.trim() === "") {
+          alert("Please enter a secret phrase or generate a new one.");
+          return;
+        }
+
+        console.log("User's Secret Phrase:", userPhrase);
+      });
+    } else {
+      console.error('bip39 is not defined. Make sure the script is included correctly.');
+    }
+  </script>
+</body>
+</html>
